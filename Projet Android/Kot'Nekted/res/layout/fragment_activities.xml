@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/imgKot"
+               android:src="@drawable/ic_people"
+               android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etPing"
+            android:layout_marginTop="40dp" android:hint="IP address" android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true" android:text="192.168.1.10"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Ping"
+            android:id="@+id/textView" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:layout_marginTop="47dp"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ping!"
+            android:id="@+id/btnPing" android:layout_alignBottom="@+id/etPing"
+            android:layout_toRightOf="@+id/etPing"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Medium Text"
+            android:id="@+id/tvResponse" android:layout_centerVertical="true" android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="150px"
+            android:layout_alignParentLeft="false" android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="false" android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100px" android:id="@+id/checkReq">
+    </LinearLayout>
+</RelativeLayout>
