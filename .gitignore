@@ -1,3 +1,8 @@
+# Internal Repositories assumed unchanged
+nico-f/KotNekted/Projet Android/Kot'Nekted/out
+nico-f/KotNekted/Projet Android/Kot'Nekted/gen
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -26,7 +31,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
