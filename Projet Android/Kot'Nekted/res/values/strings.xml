@@ -37,7 +37,33 @@
 
 
     <string name="debugKeystore">ceVxeAXZtY402HqfQXpLdfIU6AM=</string>
-
+    <string-array name="Noms">
+        <item>Nicolas</item>
+        <item>Paul</item>
+        <item>Bertrand</item>
+        <item>Jerome</item>
+        <item>Jack</item>
+        <item>Virginie</item>
+    </string-array>
+    <string-array name="Descriptions">
+        <item>Voici la desc du premier item</item>
+        <item>Voici la desc du deuxieme item</item>
+        <item>Voici la desc du troisieme item</item>
+        <item>Voici la desc du quatrieme item</item>
+        <item>Voici la desc du cinquieme item</item>
+        <item>Voici la desc du sixieme item</item>
+    </string-array>
+    <string-array name="DateTimes">
+        <item>21.11 12:50</item>
+        <item>22.11 13:40</item>
+        <item>23.11 14:30</item>
+        <item>24.11 15:20</item>
+        <item>25.11 16:10</item>
+        <item>26.11 17:00</item>
+    </string-array>
+    <string-array name="DateFormats">
+        <item>yy.MM.dd \'à\' HH:mm</item>
+    </string-array>
 
 
 </resources>

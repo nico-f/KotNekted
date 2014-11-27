@@ -46,7 +46,7 @@ public class ActivitiesFragment extends Fragment{
         ipAddress = (EditText)rootView.findViewById(R.id.etPing);
         btnPing = (Button)rootView.findViewById(R.id.btnPing);
         reqOutput = (TextView)rootView.findViewById(R.id.tvResponse);
-        imgKot = (ImageView)rootView.findViewById(R.id.imgKot);
+       // imgKot = (ImageView)rootView.findViewById(R.id.imgKot);
         checkReq = (LinearLayout)rootView.findViewById(R.id.checkReq);
 
 

@@ -2,6 +2,14 @@ package be.brainify.Kot_Nekted;
 
 import android.annotation.TargetApi;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
@@ -19,15 +27,25 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
+import android.widget.Toast;
 import be.brainify.Kot_Nekted.adapter.NavDrawerListAdapter;
 import be.brainify.Kot_Nekted.modele.NavDrawerItem;
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.exception.DropboxException;
+import com.dropbox.client2.session.AppKeyPair;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +53,7 @@ import java.util.ArrayList;
  */
 public class Application extends FragmentActivity {
 
-        private static final String TOKEN_CACHE_NAME_KEY = "TokenCacheName";
+        public final Context myApp = this;
 
         private KotFragment kotFragment;
         private FeedFragment feedFragment;
@@ -43,24 +61,15 @@ public class Application extends FragmentActivity {
         private ExploreFragment exploreFragment;
         private ProfileFragment profileFragment;
 
-
-        private boolean isShowingSettings;
-        private Session currentSession;
-        private Session.StatusCallback sessionStatusCallback;
-
+        private boolean doubleBackToExitPressedOnce;
 
         private DrawerLayout mDrawerLayout;
         private ListView mDrawerList;
         private ActionBarDrawerToggle mDrawerToggle;
 
-
-        // nav drawer title
         private CharSequence mDrawerTitle;
-
-        // used to store app title
         private CharSequence mTitle;
 
-        // slide menu items
         private String[] navMenuTitles;
         private TypedArray navMenuIcons;
 
@@ -69,11 +78,14 @@ public class Application extends FragmentActivity {
 
         @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
         @Override
+
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
             restoreFragments(savedInstanceState);
+
+
 
             mTitle = mDrawerTitle = getTitle();
 
@@ -81,15 +93,13 @@ public class Application extends FragmentActivity {
             navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
             // nav drawer icons from resources
-            navMenuIcons = getResources()
-                    .obtainTypedArray(R.array.nav_drawer_icons);
+            navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
 
             mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
             mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
             navDrawerItems = new ArrayList<NavDrawerItem>();
 
-            // adding nav drawer items to array
             // Kot
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
             // Feed
@@ -104,15 +114,11 @@ public class Application extends FragmentActivity {
 
             mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
-            // Recycle the typed array
             navMenuIcons.recycle();
 
-            // setting the nav drawer list adapter
-            adapter = new NavDrawerListAdapter(getApplicationContext(),
-                    navDrawerItems);
+            adapter = new NavDrawerListAdapter(getApplicationContext(),navDrawerItems);
             mDrawerList.setAdapter(adapter);
 
-            // enabling action bar app icon and behaving it as toggle button
             getActionBar().setDisplayHomeAsUpEnabled(true);
             getActionBar().setHomeButtonEnabled(true);
 
@@ -123,25 +129,41 @@ public class Application extends FragmentActivity {
             ){
                 public void onDrawerClosed(View view) {
                     getActionBar().setTitle(mTitle);
-                    // calling onPrepareOptionsMenu() to show action bar icons
+                    //show action bar icons
                     invalidateOptionsMenu();
                 }
 
                 public void onDrawerOpened(View drawerView) {
                     getActionBar().setTitle(mDrawerTitle);
-                    // calling onPrepareOptionsMenu() to hide action bar icons
+                    //hide action bar icons
                     invalidateOptionsMenu();
                 }
             };
             mDrawerLayout.setDrawerListener(mDrawerToggle);
 
             if (savedInstanceState == null) {
-                // on first time display view for first nav item
                 displayView(0);
             }
         }
+        @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
 
-        /**
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "DOUBLE back to EXIT", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
+    /**
          * InterFragment communications save
          * */
         private void restoreFragments(Bundle savedInstanceState) {
@@ -150,55 +172,11 @@ public class Application extends FragmentActivity {
 
             if (savedInstanceState != null) {
                 kotFragment = (KotFragment)manager.getFragment(savedInstanceState,KotFragment.TAG);
-                feedFragment = (FeedFragment)manager.getFragment(savedInstanceState,FeedFragment.TAG);
-                activitiesFragment = (ActivitiesFragment)manager.getFragment(savedInstanceState,ActivitiesFragment.TAG);
-                exploreFragment = (ExploreFragment)manager.getFragment(savedInstanceState,ExploreFragment.TAG);
-                profileFragment = (ProfileFragment)manager.getFragment(savedInstanceState, ProfileFragment.TAG);
-            }
-
-            if (kotFragment == null) {
-                kotFragment = new KotFragment();
-                transaction.add(R.id.frame_container, kotFragment, KotFragment.TAG);
-            }
-
-            if (feedFragment == null) {
-                feedFragment = new FeedFragment();
-                transaction.add(R.id.frame_container, feedFragment, FeedFragment.TAG);
-            }
-
-            if (activitiesFragment == null) {
-                activitiesFragment = new ActivitiesFragment();
-                transaction.add(R.id.frame_container, activitiesFragment, ActivitiesFragment.TAG);
-            }
-
-            if (exploreFragment == null) {
-                exploreFragment = new ExploreFragment();
-                transaction.add(R.id.frame_container, exploreFragment, ExploreFragment.TAG);
-            }
-
-            if (profileFragment == null) {
-                profileFragment = new ProfileFragment();
-                transaction.add(R.id.frame_container, profileFragment, ProfileFragment.TAG);
             }
 
         transaction.commit();
     }
-    private void fetchUserInfo() {
-        if (currentSession != null && currentSession.isOpened()) {
-            Request request = Request.newMeRequest(currentSession, new Request.GraphUserCallback() {
-                @Override
-                public void onCompleted(GraphUser me, Response response) {
-                    if (response.getRequest().getSession() == currentSession) {
-                        updateFragments(me);
-                    }
-                }
-            });
-            request.executeAsync();
-        }
-    }
-    private void updateFragments(GraphUser user) {
-        profileFragment.updateViewForUser(user);
-    }
+
         /**
          * Slide menu item click listener
          * */
@@ -304,7 +282,9 @@ public class Application extends FragmentActivity {
             mDrawerToggle.syncState();
         }
 
-        @Override
+
+
+    @Override
         public void onConfigurationChanged(Configuration newConfig) {
             super.onConfigurationChanged(newConfig);
             // Pass any configuration change to the drawer toggls
