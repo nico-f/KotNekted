@@ -15,7 +15,7 @@ import android.widget.ImageView;
 public class KotFragment extends Fragment {
 
     public static final String TAG = "KotFragment";
-    public static final String url = "http://kot-nekted.ddns.net/Symfony/";
+    public static final String url = "http://lafermeduchapitre.be/Symfony/web/app_dev.php/who";
 
     public KotFragment(){}
     private WebView kotScreen;
