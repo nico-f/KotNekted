@@ -1,0 +1,79 @@
+{% extends "kotpresenceBundle::menu.html.twig" %}
+        {% block title %}
+            Dépenses
+        {% endblock %}
+        {% block depensespage %} class="active" {% endblock %}
+        {% block body %}
+            <div class="container-fluid text-center">
+                <h1 class="text-center jumbotron">Résumé</h1>
+                {{ usernumber.2 }} - Dépenses totales <br/>
+                {{ (usernumber.2/usernumber.1)|round(2, 'ceil') }}- Dépenses par personne
+            </div>
+
+
+            <h1 class="text-center jumbotron">Déficit/Surplus par personne</h1>
+            <div class="table-responsive container-fluid" style="max-width: 1000px;">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Montant</th>
+                    </tr>
+                    {% for user in usersexpenses %}
+                        <tr>
+                            <td>{{ user.1 }}</td>
+                            <td>{{ user.2 }} <span style="color:
+                                {% if user.2-((usernumber.2/usernumber.1)|round(2, 'ceil'))<0 %}
+                                        #FF0000
+                                {% else %}
+                                        #00AA00
+                                {% endif %}
+                                        "> ({{ user.2-((usernumber.2/usernumber.1)|round(2, 'ceil')) }})</span></td>
+
+                        </tr>
+                    {% endfor %}
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <h1 class="text-center jumbotron">Historique</h1>
+            <div class="table-responsive container-fluid" style="max-width: 1000px;">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Description</th>
+                        <th>Montant</th>
+                        <th>Date</th>
+                        {% if is_granted('ROLE_USER') %}
+                            <th>Action</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for expense in expenses %}
+                        <tr>
+                            {% for keys, data in expense %}
+                                {% if keys == 'date' %}
+                                    <td>{{ data|date('d-m-y') }}</td>
+                                {% elseif keys !='exid' %}
+                                    <td>{{ data }}</td>
+                                {% endif %}
+
+                            {% endfor %}
+                            <td>
+                            {% if is_granted('ROLE_USER') and expense.1 == userid %}
+                                    <a href="{{ path('expenses_edit', { 'id': expense.exid }) }}"><button id="edit{{ expense.exid }}" type="button" class="btn btn-default glyphicon glyphicon-edit" style="color: orangered"></button></a>
+                            {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% if is_granted('ROLE_USER')%}
+                        <tr><td colspan="4"></td><td>   <a href="{{ path('expenses_new') }}"><button type="button" class="btn btn-default" style="color: green">Ajouter</button></a></td></tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        {% endblock %}

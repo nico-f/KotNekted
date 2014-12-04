@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+        {% block body %}
+            <h1 class="text-center jumbotron">Présence</h1>
+            <div class="row">
+                {% set total= 0 %}
+                {% for user in users %}
+                    {% set total = total + user.depenses %}
+                {% endfor %}
+                {% set dettecolor='#FF0000' %}
+                {% set creancecolor='#00FF00' %}
+                {% set usedcolor='' %}
+                {% for user in users %}
+                    <div class="col-lg-2 col-md-4 col-xs-6">
+                        <img class="img-responsive" src="{{ asset('img/') }}{{ user.username }}.jpg">
+                        {% if user.depenses- (total/(users|length))|round(2, 'ceil')<0 %}
+                            {% set usedcolor = dettecolor %}
+                        {% else  %}
+                            {% set usedcolor = creancecolor %}
+                        {% endif %}
+                        <h2 class="text-center" > {{ user.username }}
+                        {% if 'invite' in user.username %}
+                        {% else %}
+
+
+                            - <span style="color:{{ usedcolor }}">({{ user.depenses- (total/(users|length))|round(2, 'ceil')}})</span> - {{ user.slug }}
+                        {% endif %}
+                        </h2>
+                        <div class="fa fa-mobile"></div>
+                    </div>
+                {% endfor %}
+            </div>
+                <h1 class="text-center jumbotron">Dépenses</h1>
+                {{ total|round(2, 'ceil') }} - Dépenses totales <br/>
+                {{( total/((users|length)+1))|round(2, 'ceil') }} - Dépenses par personne
+        {% endblock %}

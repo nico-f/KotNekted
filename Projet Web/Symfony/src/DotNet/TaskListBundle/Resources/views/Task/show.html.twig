@@ -1,0 +1,56 @@
+{% extends 'kotpresenceBundle::menu.html.twig' %}
+{% block taskpage %} active {% endblock %}
+{% block title %} Tâches {% endblock %}
+{% block body -%}
+
+
+            <h1 class="text-center">{{ entity.name }}</h1>
+
+            <table class="table-bordered text-center container-fluid">
+                <tbody>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ entity.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Echéance</th>
+                        <td>{{ entity.due|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Accompli</th>
+                        <td>
+                            {% if entity.completed %}
+                                <h4 class="text-center"><span class="fa fa-check" style="color: green;"></span></h4>
+                            {% else %}
+                                <h4 class="text-center"> <span class="glyphicon glyphicon-remove" style="color: red;"></span></h4>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date d'accomplissement</th>
+                        <td>{{ entity.dateCompleted }}</td>
+                    </tr>
+                </tbody>
+            </table>
+    <div class="btn-group" role="group" aria-label="...">
+        <a href="{{ path('task') }}"><button type="button" class="btn btn-default">Back to the list</button></a>
+        <a href="{{ path('task_edit', { 'id': entity.id }) }}"><button type="button" class="btn btn-default">Edit</button></a>
+        <span class="container-fluid"> {{ form(delete_form) }}</span>
+    </div>
+                <ul class="record_actions text-center ">
+            <li>
+                <a href="{{ path('task') }}">
+                    Retour
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('task_edit', { 'id': entity.id }) }}">
+                    <span class="fa fa-pencil"></span>
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+
+
+
+{% endblock %}

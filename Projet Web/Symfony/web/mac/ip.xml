@@ -1,0 +1,11 @@
+<document>
+<address addr="192.168.0.1" addrtype="ipv4"/>
+<address addr="E8:FC:AF:90:0B:73" addrtype="mac"/>
+<address addr="192.168.0.3" addrtype="ipv4"/>
+<address addr="68:17:29:55:61:8F" addrtype="mac"/>
+<address addr="192.168.0.10" addrtype="ipv4"/>
+<address addr="00:27:10:B2:6C:60" addrtype="mac" vendor="Intel Corporate"/>
+<address addr="192.168.0.12" addrtype="ipv4"/>
+<address addr="0C:D2:92:06:70:5C" addrtype="mac" vendor="Intel Corporate"/>
+<address addr="192.168.0.18" addrtype="ipv4"/>
+</document>

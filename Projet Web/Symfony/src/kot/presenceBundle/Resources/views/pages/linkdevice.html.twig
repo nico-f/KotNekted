@@ -1,0 +1,16 @@
+{% extends "kotpresenceBundle::menu.html.twig" %}
+        {% block title %}
+            Ajouter un appareil
+        {% endblock %}
+        {% block body %}
+            <div style="height: 10px"></div>
+            <div class="container-fluid" style="max-width: 600px">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Sélectionnez le type d'appareil que vous êtes en train d'utiliser.</h2>
+                    </div>
+                <div class="panel-body">
+                        {{ form(form) }}
+                </div>
+            </div>
+        {% endblock %}

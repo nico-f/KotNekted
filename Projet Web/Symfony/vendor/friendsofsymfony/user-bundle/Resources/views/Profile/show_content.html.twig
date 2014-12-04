@@ -1,0 +1,19 @@
+{% extends "kotpresenceBundle::menu.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block profilepage %}class="active"{% endblock %}
+{% block body %}
+
+    <div class="container-fluid center-block">
+        <div class="fos_user_user_show  ">
+            <p>
+                <img class="img-responsive " style="margin: 0 auto" src="{{ asset('img/') }}{{ user.username }}.jpg" class="img-responsive">
+            </p>
+            <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+            <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+            <p>Nom : {{ user.nom }}</p>
+            <p>Prénom : {{ user.prenom }}</p>
+            <p></p>
+            <p><a href="{{ path('fos_user_profile_edit') }}">Modifier le profil</a> </p>
+        </div>
+    </div>
+{% endblock %}

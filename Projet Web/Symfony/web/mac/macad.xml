@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 6.00 scan initiated Wed Nov 12 10:31:36 2014 as: nmap -oX i3.xml -p 1-254 -r 192.168.0.0/24 -->
+<nmaprun scanner="nmap" args="nmap -oX i3.xml -p 1-254 -r 192.168.0.0/24" start="1415788296" startstr="Wed Nov 12 10:31:36 2014" version="6.00" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="254" services="1-254"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1415788296" endtime="1415788297"><status state="up" reason="arp-response"/>
+<address addr="192.168.0.1" addrtype="ipv4"/>
+<address addr="E8:FC:AF:90:0B:73" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="253">
+<extrareasons reason="resets" count="253"/>
+</extraports>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+</ports>
+<times srtt="11211" rttvar="430" to="100000"/>
+</host>
+<host starttime="1415788296" endtime="1415788301"><status state="up" reason="arp-response"/>
+<address addr="192.168.0.2" addrtype="ipv4"/>
+<address addr="68:17:29:55:61:8F" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="252">
+<extrareasons reason="no-responses" count="252"/>
+</extraports>
+<port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="netbios-ssn" method="table" conf="3"/></port>
+</ports>
+<times srtt="43450" rttvar="50402" to="245058"/>
+</host>
+<host starttime="1415788296" endtime="1415788297"><status state="up" reason="arp-response"/>
+<address addr="192.168.0.9" addrtype="ipv4"/>
+<address addr="4C:CB:F5:0C:19:34" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="254">
+<extrareasons reason="resets" count="254"/>
+</extraports>
+</ports>
+<times srtt="24742" rttvar="2846" to="100000"/>
+</host>
+<host starttime="1415788296" endtime="1415788297"><status state="up" reason="arp-response"/>
+<address addr="192.168.0.10" addrtype="ipv4"/>
+<address addr="88:9F:FA:2E:75:DA" addrtype="mac" vendor="Hon Hai Precision Ind. Co."/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="254">
+<extrareasons reason="resets" count="254"/>
+</extraports>
+</ports>
+<times srtt="18210" rttvar="10646" to="100000"/>
+</host>
+<host starttime="1415788306" endtime="1415788306"><status state="up" reason="localhost-response"/>
+<address addr="192.168.0.18" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="253">
+<extrareasons reason="resets" count="253"/>
+</extraports>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" method="table" conf="3"/></port>
+</ports>
+<times srtt="162" rttvar="15" to="100000"/>
+</host>
+<host starttime="1415788302" endtime="1415788315"><status state="up" reason="arp-response"/>
+<address addr="192.168.0.139" addrtype="ipv4"/>
+<address addr="0C:D2:92:06:70:5C" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="252">
+<extrareasons reason="no-responses" count="252"/>
+</extraports>
+<port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="netbios-ssn" method="table" conf="3"/></port>
+</ports>
+<times srtt="23052" rttvar="27823" to="134344"/>
+</host>
+<runstats><finished time="1415788315" timestr="Wed Nov 12 10:31:55 2014" elapsed="20.08" summary="Nmap done at Wed Nov 12 10:31:55 2014; 256 IP addresses (6 hosts up) scanned in 20.08 seconds" exit="success"/><hosts up="6" down="250" total="256"/>
+</runstats>
+</nmaprun>

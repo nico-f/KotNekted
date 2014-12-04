@@ -1,0 +1,30 @@
+kotmainpage:
+    path: /who
+    defaults : { _controller: kotpresenceBundle:image:index}
+
+kotdebtpage:
+    path: /expense
+    defaults : { _controller: kotpresenceBundle:depenses:index}
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+linkdevice:
+    path : /linkdevice
+    defaults : { _controller: kotpresenceBundle:linkDevice:newlink}
+
+expenses_pages:
+    resource: "@kotpresenceBundle/Controller/expensesController.php"
+    type: annotation
+
+photos:
+    path: /photos
+    defaults: { _controller: kotpresenceBundle:photo:index}
+
+announce_pages:
+    resource: "@kotpresenceBundle/Controller/announceController.php"
+    type: annotation
+
+macpages :
+    resource: "@kotpresenceBundle/Controller/mactableController.php"
+    type: annotation

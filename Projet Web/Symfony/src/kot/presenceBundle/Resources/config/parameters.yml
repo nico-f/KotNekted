@@ -1,0 +1,3 @@
+parameters:
+    avatar :
+        max-width : 600

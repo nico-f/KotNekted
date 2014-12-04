@@ -1,0 +1,80 @@
+{% extends "kotpresenceBundle::menu.html.twig" %}
+        {% block title %}
+            Dépenses
+        {% endblock %}
+        {% block depensespage %} class="active" {% endblock %}
+        {% block body %}
+            <div>
+                <h1 class="text-center jumbotron">Résumé</h1>
+                {{ usernumber.2 }} - Dépenses totales <br/>
+                {{ (usernumber.2/usernumber.1)|round(2, 'ceil') }}- Dépenses par personne
+            </div>
+
+
+            <h1 class="text-center jumbotron">Déficit/Surplus par personne</h1>
+            <div class="table-responsive container-fluid" style="max-width: 1000px;">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Montant</th>
+                    </tr>
+                    {% for user in usersexpenses %}
+                        <tr>
+                            <td>{{ user.1 }}</td>
+                            <td>{{ user.2 }} <span style="color:
+                            {% if user.2-((usernumber.2/usernumber.1)|round(2, 'ceil'))<0 %}
+                                #FF0000
+                            {% else %}
+                                #00AA00
+                            {% endif %}
+                            "> ({{ user.2-((usernumber.2/usernumber.1)|round(2, 'ceil')) }})</span></td>
+
+                        </tr>
+                    {% endfor %}
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <h1 class="text-center jumbotron">Historique</h1>
+            {% if is_granted('ROLE_USER') %}
+                <div class="text-right" style="margin-right: 10px">    <a href="{{ path('expenses_create') }}"><button type="button" class="btn btn-default" style="color: green">Ajouter</button></a></div>
+            {% endif %}
+            <div class="table-responsive container-fluid" style="max-width: 1000px;">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Description</th>
+                        <th>Montant</th>
+                        <th>Date</th>
+                        {% if is_granted('ROLE_USER') %}
+                            <th>Action</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for expense in expenses %}
+                        <tr>
+                        {% for keys, data in expense %}
+                            {% if keys == 'date' %}
+                                <td>{{ data|date('d-m-y') }}</td>
+                            {% else %}
+                                <td>{{ data }}</td>
+                            {% endif %}
+
+                        {% endfor %}
+                        {% if is_granted('ROLE_USER') %}
+                            <td>
+                                   <button id="remove{{ expense.description }}" type="button" class="btn btn-default glyphicon glyphicon-remove" style="color: red">{{ form(delete_form) }}</button>
+                                    <a href="{{ path('expenses_edit') }}"><button id="edit{{ expense.id }}" type="button" class="btn btn-default glyphicon glyphicon-edit" style="color: orangered"></button></a>
+                            </td>
+                        {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endblock %}

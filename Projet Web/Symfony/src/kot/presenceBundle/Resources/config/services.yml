@@ -1,0 +1,6 @@
+services:
+    kot_user.registration.form.type:
+        class: kot\presenceBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: kot_user_registration }
+        arguments: [%fos_user.model.user.class%]

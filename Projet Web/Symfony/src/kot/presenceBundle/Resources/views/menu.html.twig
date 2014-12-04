@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+    {% block menu %}
+    <nav id="myNavbar" class="navbar navbar-default  navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('kotmainpage') }}">Kot'nekted</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="nav navbar-nav">
+
+                    <li {% block whopage %}{% endblock %}><a href="{{ path('kotmainpage') }}">Présences</a></li>
+                    <li {% block announcespage %}{% endblock %}><a href="{{ path('announce') }}">Annonces</a></li>
+                    <li {% block depensespage %}{% endblock %}><a href="{{ path('expenses') }}">Dépenses</a></li>
+                    <li {% block photopage %}{% endblock %}><a href="{{ path('photos') }}">Photos</a></li>
+                    <li class="dropdown {% block taskpage %}{% endblock %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tâches <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ path('task') }}">Toutes les tâches</a></li>
+                            <li><a href="{{ path('list') }}">Liste des listes de tâches</a></li>
+                        </ul>
+                    </li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="dropdown" {% block profilepage %}{% endblock %}>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profil <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ path('fos_user_profile_show') }}">Voir</a></li>
+                                <li><a href="{{ path('linkdevice') }}">Lier un appareil</a></li>
+                                <li><a href="#">Modifier</a></li>
+                            </ul>
+                        </li>
+
+
+
+
+
+                        <li ><a href="{{ path('fos_user_security_logout') }}"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                    {% else %}
+                        <li {% block loginpage %}{% endblock %}><a href="{{ path('fos_user_security_login') }}"> {{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                        <li {% block registerpage %}{% endblock %}><a href="{{ path('fos_user_registration_register') }}"> {{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+        <div style="height: 50px;"></div>
+    {% endblock %}

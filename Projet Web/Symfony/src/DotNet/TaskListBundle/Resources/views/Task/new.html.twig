@@ -1,0 +1,16 @@
+{% extends 'kotpresenceBundle::menu.html.twig' %}
+{% block taskpage %} active {% endblock %}
+{% block title %} Tâches {% endblock %}
+{% block body -%}
+    <h1>Créer une nouvelle tâche</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('task') }}">
+            Retour
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "kotpresenceBundle::menu.html.twig" %}
+        {% block title %}
+            Annonces
+        {% endblock %}
+        {% block announcespage %} class="active" {% endblock %}
+        {% block body %}
+    <h1>announce</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ entity.message }}</td>
+            </tr>
+            <tr>
+                <th>Creationdate</th>
+                <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('announce') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('announce_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

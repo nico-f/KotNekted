@@ -1,0 +1,40 @@
+{% extends "kotpresenceBundle::menu.html.twig" %}
+        {% block title %}
+            Annonces
+        {% endblock %}
+        {% block announcespage %} class="active" {% endblock %}
+        {% block body %}
+    <h1 class="jumbotron text-center">Annonces</h1>
+    <div class="container-fluid table-responsive" style="max-width: 1000px;">
+        <table class="table table-bordered" >
+            <thead>
+                <tr>
+                    <th>Auteur</th>
+                    <th>Message</th>
+                    <th style="min-width: 155px">Date de création</th>
+                    {% if is_granted('ROLE_USER') %}
+                         <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.idAuthor }}</td>
+                    <td>{{ entity.message }}</td>
+                    <td>{% if entity.creationDate %}{{ entity.creationDate|date('d-m-Y H:i:s') }}{% endif %}</td><td>
+                            {% if is_granted('ROLE_USER') and entity.idAuthor == userid %}
+
+                                <a href="{{ path('announce_edit', { 'id': entity.id }) }}"><button id="edit{{ entity.id }}" type="button" class="btn btn-default glyphicon glyphicon-edit" style="color: orangered"></button></a>
+
+                            {% endif %}</td>
+                </tr>
+            {% endfor %}
+
+            {% if is_granted('ROLE_USER')%}
+                <tr><td colspan="3"></td><td>   <a href="{{ path('announce_new') }}"><button type="button" class="btn btn-default" style="color: green">Ajouter</button></a></td></tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}

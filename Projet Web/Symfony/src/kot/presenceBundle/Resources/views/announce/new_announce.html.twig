@@ -1,0 +1,25 @@
+        {% block body %}
+            {% if entities is not empty %}
+            <h1 class="jumbotron text-center">Annonces</h1>
+            <div class="container-fluid table-responsive" style="max-width: 1000px;">
+                <table class="table table-bordered" >
+                    <thead>
+                    <tr>
+                        <th>Auteur</th>
+                        <th>Message</th>
+                        <th  style="min-width: 155px">Date de création</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                                <td>{{ entity.username }}</td>
+                            <td>{{ entity.message }}</td>
+                            <td>{% if entity.creationDate %}{{ entity.creationDate|date('d-m-Y H:i:s') }}{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'kotpresenceBundle::menu.html.twig' %}
+{% block taskpage %} active {% endblock %}
+{% block title %} Tâches {% endblock %}
+{% block body -%}
+    <h1 class="text-center">Modifier</h1>
+    <div class="container-fluid text-center">{{ form(edit_form) }}
+
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('task') }}">
+            Retour
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul></div>
+{% endblock %}
