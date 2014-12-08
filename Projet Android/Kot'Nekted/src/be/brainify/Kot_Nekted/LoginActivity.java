@@ -7,6 +7,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,7 @@ public class LoginActivity extends FragmentActivity {
     private static final String urlQR = "http://zxing.appspot.com/scan";
     public static boolean isLogged;
 
+    private boolean shdQuit = false;
     private WifiManager wifiManager;
     private WifiInfo info;
 
@@ -72,9 +74,21 @@ public class LoginActivity extends FragmentActivity {
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent i = new Intent(ctx,LoginActivity.class);
-        startActivity(i);
+        if (shdQuit) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.shdQuit = true;
+        Toast.makeText(this, "DOUBLE back to EXIT", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                shdQuit=false;
+            }
+        }, 2000);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +116,7 @@ public class LoginActivity extends FragmentActivity {
             public void onClick(View v) {
                 qrScreen.getSettings().setJavaScriptEnabled(true);
                 qrScreen.setWebViewClient(new WebViewClient());
-                qrScreen.loadUrl("http://lafermeduchapitre.be/Symfony/web/app_dev.php/login");
+                qrScreen.loadUrl("http://lafermeduchapitre.be/Symfony/web/app.php/login");
                 qrScreen.setVisibility(View.VISIBLE);
                 //switchLayout(-1);
                 //Intent iApp = new Intent(ctx,Application.class);
