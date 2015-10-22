@@ -1,5 +1,6 @@
 KotNekted
 =========
+Système de communication interKot entre Mobile et Serveur RaspBerry
 
 Répertoir des projets de Brainify
 
